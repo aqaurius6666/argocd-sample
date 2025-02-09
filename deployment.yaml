@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: dev-sample-argocd
-  namespace: dev-sample-argocd-argocd
+  namespace: dev-sample-argocd
   labels:
     app: dev-sample-argocd
 spec:
