@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dev-sample-argocd
+  namespace: dev-sample-argocd-argocd
+  labels:
+    app: dev-sample-argocd
+spec:
+  selector:
+    matchLabels:
+      app: dev-sample-argocd
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: dev-sample-argocd
+    spec:
+      containers:
+      - name: dev-sample-argocd
+        image: nginx:latest
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            memory: 2048Mi
+            cpu: 100m
+          limits:
+            memory: 6144Mi
+            cpu: 2048m
+
