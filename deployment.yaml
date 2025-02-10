@@ -21,9 +21,45 @@ spec:
         imagePullPolicy: IfNotPresent
         resources:
           requests:
-            memory: 2048Mi
+            memory: 200Mi
             cpu: 100m
           limits:
-            memory: 6144Mi
+            memory: 600Mi
             cpu: 2048m
+        volumeMounts:
+        - name: data-volume
+          mountPath: /data   # adjust mount path as necessary
+      volumes:
+      - name: data-volume
+        persistentVolumeClaim:
+          claimName: orbstack-host-pvc
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: orbstack-host-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /tmp/data
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: orbstack-host-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: ""
+  resources:
+    requests:
+      storage: 1Gi
+
+
 
