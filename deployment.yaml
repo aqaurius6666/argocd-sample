@@ -26,26 +26,6 @@ spec:
           limits:
             memory: 600Mi
             cpu: 2048m
-        volumeMounts:
-        - name: data-volume
-          mountPath: /data   # adjust mount path as necessary
-      volumes:
-      - name: data-volume
-        persistentVolumeClaim:
-          claimName: orbstack-host-pvc
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: orbstack-host-pvc
-spec:
-  accessModes:
-    - ReadWriteOnce
-  storageClassName: "local-path"
-  policy: Retain
-  resources:
-    requests:
-      storage: 1Gi
 ---
 apiVersion: apps/v1
 kind: Deployment
