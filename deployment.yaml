@@ -42,9 +42,38 @@ spec:
   accessModes:
     - ReadWriteOnce
   storageClassName: "local-path"
+  policy: Retain
   resources:
     requests:
       storage: 1Gi
-
-
-
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dev-sample-argocd-2
+  namespace: dev-sample-argocd
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
+  labels:
+    app: dev-sample-argocd-2
+spec:
+  selector:
+    matchLabels:
+      app: dev-sample-argocd-2
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: dev-sample-argocd-2
+    spec:
+      containers:
+      - name: dev-sample-argocd
+        image: nginx:latest
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            memory: 200Mi
+            cpu: 100m
+          limits:
+            memory: 600Mi
+            cpu: 2048m
