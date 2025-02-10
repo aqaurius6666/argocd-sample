@@ -33,21 +33,6 @@ spec:
       - name: data-volume
         persistentVolumeClaim:
           claimName: orbstack-host-pvc
-
-# ---
-# apiVersion: v1
-# kind: PersistentVolume
-# metadata:
-#   name: orbstack-host-pv
-# spec:
-#   capacity:
-#     storage: 1Gi
-#   accessModes:
-#     - ReadWriteOnce
-#   persistentVolumeReclaimPolicy: Retain
-#   hostPath:
-#     path: /tmp/data
-
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -56,7 +41,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: ""
+  storageClassName: "local-path"
   resources:
     requests:
       storage: 1Gi
